@@ -906,6 +906,33 @@
   color: var(--primary);
 }
 
+    .home-card {
+      width: min(1800px, calc(100vw - 24px));
+      max-width: none;
+    }
+
+    .home-status-panel {
+      margin: 0 0 18px;
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: #f8f9ff;
+    }
+
+    .home-status-panel h2 {
+      margin: 0 0 14px;
+      font-size: 22px;
+      letter-spacing: -0.03em;
+    }
+
+    .home-status-panel .goal-panel {
+      margin: 0 0 14px;
+    }
+
+    .home-status-panel .usage-panel {
+      margin: 0;
+    }
+
     .home-buttons {
       grid-template-columns: repeat(3, minmax(0, 1fr));
     }
@@ -1458,6 +1485,79 @@
           <p id="homeNoticeText">명단 추가 시 개인지급/길드지급과 엽서종류를 확인해주세요. 관리자가 추가한 공통 길드지급 항목은 모든 승인 사용자에게 표시됩니다.</p>
         </div>
 
+        <div class="home-status-panel">
+          <h2>진행 현황 및 재화</h2>
+        <div class="goal-panel">
+          <div class="goal-row">
+            <span>목표 명성</span>
+            <input id="targetReputationInput" type="number" min="0" step="1" placeholder="목표 명성 입력" />
+            <span>현재 우칸</span>
+            <input id="currentMailboxCapacityInput" type="number" min="0" step="1" placeholder="보유 우칸 입력" />
+            <button id="saveTargetReputationBtn" type="button" class="small-btn">목표 저장</button>
+          </div>
+
+          <div class="goal-stats">
+            <div class="goal-stat">
+              <span>현재 매입한 총 명성</span>
+              <b id="currentPurchasedReputation">0</b>
+            </div>
+            <div class="goal-stat">
+              <span>현재 매입한 엽서 우칸</span>
+              <b id="currentMailboxSlots">0칸</b>
+            </div>
+            <div class="goal-stat">
+              <span>남은 명성</span>
+              <b id="remainingReputation">0</b>
+            </div>
+            <div class="goal-stat">
+              <span>추가 필요 깜엽</span>
+              <b id="requiredKkamLeaves">0개</b>
+            </div>
+            <div class="goal-stat">
+              <span>목표 명성 도달 시 채워지는 우칸의 양</span>
+              <b id="targetMailboxSlots">0칸</b>
+            </div>
+            <div class="goal-stat">
+              <span>남는/부족한 우칸</span>
+              <b id="mailboxSlotBalance">0칸</b>
+            </div>
+          </div>
+
+          <div class="goal-progress-wrap">
+            <div class="goal-progress-top">
+              <span>목표 달성률</span>
+              <b id="goalProgressPercent">0%</b>
+            </div>
+            <div class="goal-progress-bar">
+              <div id="goalProgressFill" class="goal-progress-fill"></div>
+            </div>
+            <div id="goalProgressMessage" class="goal-message">목표 명성을 입력하면 진행률이 표시됩니다.</div>
+          </div>
+        </div>
+
+        <div class="usage-panel">
+          <h2>매입에 사용한 엽서</h2>
+          <div class="usage-grid">
+            <div class="usage-section">
+              <h3>지급완</h3>
+              <div id="usedPostcardsPaid"></div>
+              <div class="currency-box">
+                <h3>매입에 사용한 재화</h3>
+                <div id="usedCurrencyPaid"></div>
+              </div>
+            </div>
+            <div class="usage-section">
+              <h3>지급 예정 포함</h3>
+              <div id="usedPostcardsPlanned"></div>
+              <div class="currency-box">
+                <h3>매입에 사용한 재화</h3>
+                <div id="usedCurrencyPlanned"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+
         <div class="big-buttons home-buttons">
           <button id="sebaeBtn" type="button" class="big-btn">세배엽 목록</button>
           <button id="fourthBtn" type="button" class="big-btn">4기엽 목록</button>
@@ -1599,76 +1699,6 @@
           <div class="sum-boxes">
             <span class="sum-box">받은 엽서 합계 : <b id="combinedReceivedTotal">0</b></span>
             <span class="sum-box">매입한 엽서 총 합계 : <b id="combinedPurchasedTotal">0</b></span>
-          </div>
-        </div>
-
-        <div class="goal-panel">
-          <div class="goal-row">
-            <span>목표 명성</span>
-            <input id="targetReputationInput" type="number" min="0" step="1" placeholder="목표 명성 입력" />
-            <span>현재 우칸</span>
-            <input id="currentMailboxCapacityInput" type="number" min="0" step="1" placeholder="보유 우칸 입력" />
-            <button id="saveTargetReputationBtn" type="button" class="small-btn">목표 저장</button>
-          </div>
-
-          <div class="goal-stats">
-            <div class="goal-stat">
-              <span>현재 매입한 총 명성</span>
-              <b id="currentPurchasedReputation">0</b>
-            </div>
-            <div class="goal-stat">
-              <span>현재 매입한 엽서 우칸</span>
-              <b id="currentMailboxSlots">0칸</b>
-            </div>
-            <div class="goal-stat">
-              <span>남은 명성</span>
-              <b id="remainingReputation">0</b>
-            </div>
-            <div class="goal-stat">
-              <span>추가 필요 깜엽</span>
-              <b id="requiredKkamLeaves">0개</b>
-            </div>
-            <div class="goal-stat">
-              <span>목표 명성 도달 시 채워지는 우칸의 양</span>
-              <b id="targetMailboxSlots">0칸</b>
-            </div>
-            <div class="goal-stat">
-              <span>남는/부족한 우칸</span>
-              <b id="mailboxSlotBalance">0칸</b>
-            </div>
-          </div>
-
-          <div class="goal-progress-wrap">
-            <div class="goal-progress-top">
-              <span>목표 달성률</span>
-              <b id="goalProgressPercent">0%</b>
-            </div>
-            <div class="goal-progress-bar">
-              <div id="goalProgressFill" class="goal-progress-fill"></div>
-            </div>
-            <div id="goalProgressMessage" class="goal-message">목표 명성을 입력하면 진행률이 표시됩니다.</div>
-          </div>
-        </div>
-
-        <div class="usage-panel">
-          <h2>매입에 사용한 엽서</h2>
-          <div class="usage-grid">
-            <div class="usage-section">
-              <h3>지급완</h3>
-              <div id="usedPostcardsPaid"></div>
-              <div class="currency-box">
-                <h3>매입에 사용한 재화</h3>
-                <div id="usedCurrencyPaid"></div>
-              </div>
-            </div>
-            <div class="usage-section">
-              <h3>지급 예정 포함</h3>
-              <div id="usedPostcardsPlanned"></div>
-              <div class="currency-box">
-                <h3>매입에 사용한 재화</h3>
-                <div id="usedCurrencyPlanned"></div>
-              </div>
-            </div>
           </div>
         </div>
 
@@ -2682,7 +2712,7 @@
     }
 
     function calculateAdminUserStats({ personalEntriesByListForUser, sharedEntriesByListForUser, sharedStatesByListForUser }) {
-      return ["sebae", "fourth"].reduce(
+      return ["sebae", "fourth", "misc"].reduce(
         (acc, listType) => {
           const personalEntries = personalEntriesByListForUser[listType] || [];
 
@@ -2690,7 +2720,7 @@
             .filter((entry) => entry.deleted !== true)
             .forEach((entry) => {
               acc.purchased += getPostcardPointValue(listType, entry);
-              acc.postcardCount += 1;
+              acc.postcardCount += listType === "misc" ? getMiscPostcardQuantity(entry) : 1;
             });
 
           const sharedStates = sharedStatesByListForUser[listType] || {};
@@ -2705,7 +2735,7 @@
                 ...entry,
                 risingTe: Boolean(state.risingTe)
               });
-              acc.postcardCount += 1;
+              acc.postcardCount += listType === "misc" ? getMiscPostcardQuantity(entry) : 1;
             });
 
           return acc;
@@ -2715,31 +2745,22 @@
     }
 
     async function loadAdminUserStatus(user, sharedEntriesForAdmin) {
-      const [
-        goalSnapshot,
-        sebaeEntries,
-        fourthEntries,
-        sebaeStates,
-        fourthStates
-      ] = await Promise.all([
-        getDoc(doc(db, "users", user.uid, "settings", "reputationGoal")),
-        loadUserListEntriesForAdmin(user.uid, "sebae"),
-        loadUserListEntriesForAdmin(user.uid, "fourth"),
-        loadUserSharedStateForAdmin(user.uid, "sebae"),
-        loadUserSharedStateForAdmin(user.uid, "fourth")
-      ]);
+      const goalSnapshot = await getDoc(doc(db, "users", user.uid, "settings", "reputationGoal"));
+      const personalEntriesByListForUser = {};
+      const sharedStatesByListForUser = {};
+
+      await Promise.all(
+        ["sebae", "fourth", "misc"].map(async (listType) => {
+          personalEntriesByListForUser[listType] = await loadUserListEntriesForAdmin(user.uid, listType);
+          sharedStatesByListForUser[listType] = await loadUserSharedStateForAdmin(user.uid, listType);
+        })
+      );
 
       const goalData = goalSnapshot.data() || {};
       const stats = calculateAdminUserStats({
-        personalEntriesByListForUser: {
-          sebae: sebaeEntries,
-          fourth: fourthEntries
-        },
+        personalEntriesByListForUser,
         sharedEntriesByListForUser: sharedEntriesForAdmin,
-        sharedStatesByListForUser: {
-          sebae: sebaeStates,
-          fourth: fourthStates
-        }
+        sharedStatesByListForUser
       });
 
       const targetReputationValue = Number(goalData.targetReputation || 0);
@@ -2801,10 +2822,13 @@
             </tr>
           `;
         } else {
-          const sharedEntriesForAdmin = {
-            sebae: await loadSharedEntriesForList("sebae"),
-            fourth: await loadSharedEntriesForList("fourth")
-          };
+          const sharedEntriesForAdmin = {};
+
+          await Promise.all(
+            ["sebae", "fourth", "misc"].map(async (listType) => {
+              sharedEntriesForAdmin[listType] = await loadSharedEntriesForList(listType);
+            })
+          );
 
           const userStatuses = await Promise.all(
             approvedUsers.map((user) => loadAdminUserStatus(user, sharedEntriesForAdmin))
@@ -6174,14 +6198,15 @@
       });
     }
 
-    goHome = function () {
+    goHome = async function () {
       currentListType = null;
       modalListType = null;
       entries = [];
-      resetListCaches();
       clearSingleSubscription();
       clearCombinedSubscriptions();
+      resetListCaches();
       showScreen("home");
+      await startHomeOverviewSubscriptions();
     }
 
     renderEntries = function () {
@@ -7256,6 +7281,69 @@
       return saveStandardEntryV8();
     };
 
+    function renderHomeProgressPanel() {
+      renderGoalCalculator();
+      renderUsedPostcardPanel();
+    }
+
+    async function startHomeOverviewSubscriptions() {
+      if (!currentUser) return;
+
+      clearSingleSubscription();
+      clearCombinedSubscriptions();
+      resetListCaches();
+      renderHomeProgressPanel();
+
+      for (const listType of ALL_LIST_TYPES) {
+        await ensureListDocumentExists(listType);
+        await ensureSharedListDocumentExists(listType);
+      }
+
+      ALL_LIST_TYPES.forEach((listType) => {
+        combinedUnsubscribes.push(onSnapshot(
+          getListRef(listType),
+          (snapshot) => {
+            const data = snapshot.data();
+            personalEntriesByList[listType] = Array.isArray(data?.entries) ? data.entries : [];
+            updateMergedEntriesForList(listType);
+            renderHomeProgressPanel();
+          },
+          (error) => {
+            console.error(error);
+            showToast("개인 목록을 불러오지 못했습니다.");
+          }
+        ));
+
+        combinedUnsubscribes.push(onSnapshot(
+          getSharedListRef(listType),
+          (snapshot) => {
+            const data = snapshot.data();
+            sharedEntriesByList[listType] = Array.isArray(data?.entries) ? data.entries : [];
+            updateMergedEntriesForList(listType);
+            renderHomeProgressPanel();
+          },
+          (error) => {
+            console.error(error);
+            showToast("공통 길드지급 목록을 불러오지 못했습니다.");
+          }
+        ));
+
+        combinedUnsubscribes.push(onSnapshot(
+          getSharedStateRef(listType),
+          (snapshot) => {
+            const data = snapshot.data();
+            sharedStatesByList[listType] = data?.states && typeof data.states === "object" ? data.states : {};
+            updateMergedEntriesForList(listType);
+            renderHomeProgressPanel();
+          },
+          (error) => {
+            console.error(error);
+            showToast("공통 항목 상태를 불러오지 못했습니다.");
+          }
+        ));
+      });
+    }
+
     loadNoticeSettings();
 
     signupBtn.addEventListener("click", async () => {
@@ -7346,6 +7434,7 @@
 
   await loadTargetReputation();
   showScreen("home");
+  await startHomeOverviewSubscriptions();
   } 
     else {
       pendingEmail.textContent = `${user.email} 계정은 현재 승인 대기 중입니다.`;
