@@ -1422,7 +1422,7 @@
     .custom-preset-choice {
       min-height: 44px;
       display: grid;
-      grid-template-columns: auto 1fr auto;
+      grid-template-columns: auto minmax(0, 1fr) 34px;
       align-items: center;
       gap: 8px;
       padding: 0 10px;
@@ -1439,6 +1439,13 @@
       width: 18px;
       height: 18px;
       accent-color: var(--primary);
+    }
+
+    .custom-preset-choice span {
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
 
     .custom-preset-choice:has(input:checked) {
@@ -1463,6 +1470,8 @@
       font-size: 16px;
       font-weight: 1000;
       line-height: 1;
+      justify-self: end;
+      margin-left: auto;
     }
 
     .custom-preset-actions {
@@ -7601,7 +7610,7 @@
     let standardDefaultSelectionByList = { sebae: null, fourth: null };
     let standardPresetControlsReady = false;
 
-    const STANDARD_PRESET_SETTING_ID = "standardPricePresets";
+    const STANDARD_PRESET_SETTING_ID = "reputationGoal";
     const STANDARD_PRICE_DISPLAY_ORDER = [
       { code: "kkam", name: "깜엽", short: "깜", repeat: true },
       { code: "ju", name: "주엽", short: "주", repeat: true },
@@ -7858,8 +7867,8 @@
           try {
             standardCustomPricePresets = standardCustomPricePresets.filter((item) => item.id !== presetId);
             sanitizeStandardDefaultSelections();
-            await saveStandardPricePresetSettings();
             renderStandardCustomPresetOptions();
+            await saveStandardPricePresetSettings();
             showToast("커스텀 가격 항목을 삭제했습니다. 이미 추가된 명단은 유지됩니다.");
           } catch (error) {
             console.error(error);
@@ -8162,9 +8171,9 @@
           };
 
           standardCustomPricePresets = [...standardCustomPricePresets, preset];
-          await saveStandardPricePresetSettings();
           renderStandardCustomPresetOptions();
           setSelectedListTypes([{ listType, paidItemMode: "custom", customPresetId: preset.id }]);
+          await saveStandardPricePresetSettings();
           closeStandardPresetModal();
           showToast(`${label} 항목을 추가했습니다.`);
         } catch (error) {
